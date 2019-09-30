@@ -13,10 +13,9 @@ namespace MyWindowsFormsApp.Repository
         public bool Add(string name, double price)
         {
             bool isAdded = false;
-            try
-            {
+      
                 //Connection
-                string connectionString = @"Server=PC-301-05\SQLEXPRESS; Database=CoffeeShop; Integrated Security=True";
+                string connectionString = @"Server=DESKTOP-FJFQ4S2\SQLSERVER; Database=CoffeeShop; Integrated Security=True";
                 SqlConnection sqlConnection = new SqlConnection(connectionString);
 
                 //Command 
@@ -52,13 +51,6 @@ namespace MyWindowsFormsApp.Repository
                 //Close
                 sqlConnection.Close();
 
-
-            }
-            catch (Exception exeption)
-            {
-               // MessageBox.Show(exeption.Message);
-            }
-
             return isAdded;
         }
         public bool IsNameExists(string name)
@@ -67,7 +59,7 @@ namespace MyWindowsFormsApp.Repository
             try
             {
                 //Connection
-                string connectionString = @"Server=PC-301-05\SQLEXPRESS; Database=CoffeeShop; Integrated Security=True";
+                string connectionString = @"Server=DESKTOP-FJFQ4S2\SQLSERVER; Database=CoffeeShop; Integrated Security=True";
                 SqlConnection sqlConnection = new SqlConnection(connectionString);
 
                 //Command 
@@ -102,7 +94,7 @@ namespace MyWindowsFormsApp.Repository
             try
             {
                 //Connection
-                string connectionString = @"Server=PC-301-05\SQLEXPRESS; Database=CoffeeShop; Integrated Security=True";
+                string connectionString = @"Server=DESKTOP-FJFQ4S2\SQLSERVER; Database=CoffeeShop; Integrated Security=True";
                 SqlConnection sqlConnection = new SqlConnection(connectionString);
 
                 //Command 
@@ -138,7 +130,7 @@ namespace MyWindowsFormsApp.Repository
             try
             {
                 //Connection
-                string connectionString = @"Server=PC-301-05\SQLEXPRESS; Database=CoffeeShop; Integrated Security=True";
+                string connectionString = @"Server=DESKTOP-FJFQ4S2\SQLSERVER; Database=CoffeeShop; Integrated Security=True";
                 SqlConnection sqlConnection = new SqlConnection(connectionString);
 
                 //Command 
@@ -170,7 +162,7 @@ namespace MyWindowsFormsApp.Repository
         public DataTable Display()
         {
                 //Connection
-                string connectionString = @"Server=PC-301-05\SQLEXPRESS; Database=CoffeeShop; Integrated Security=True";
+                string connectionString = @"Server=DESKTOP-FJFQ4S2\SQLSERVER; Database=CoffeeShop; Integrated Security=True";
                 SqlConnection sqlConnection = new SqlConnection(connectionString);
 
                 //Command 
@@ -204,7 +196,7 @@ namespace MyWindowsFormsApp.Repository
         {
             
                 //Connection
-                string connectionString = @"Server=PC-301-05\SQLEXPRESS; Database=CoffeeShop; Integrated Security=True";
+                string connectionString = @"Server=DESKTOP-FJFQ4S2\SQLSERVER; Database=CoffeeShop; Integrated Security=True";
                 SqlConnection sqlConnection = new SqlConnection(connectionString);
 
                 //Command 
