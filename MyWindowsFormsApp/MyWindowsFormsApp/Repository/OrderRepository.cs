@@ -14,14 +14,15 @@ namespace MyWindowsFormsApp.Repository
         {
             try
             { // SQL connection 
-                string connectionString = @"Server=localhost; DataBase=CoffeeShop; Integrated Security=True";
+                string connectionString = @"Server=DESKTOP-FJFQ4S2\SQLSERVER; DataBase=CoffeeShop; Integrated Security=True";
                 SqlConnection sqlConnection = new SqlConnection(connectionString);
                 //Sql Command
 
-                string commandString = "INSERT INTO Orders(CustomerName,IteamName,OrderQuantity,TotalPrice) VALUES ('" + customerName + "','" + iteamName + "','" + orderQuantity.ToString() + "','" + totalPrice.ToString() + "')";
+                string commandString = "INSERT INTO Orders(CustomerName,IteamName,OrderQuantity,TotalPrice) VALUES ('" + customerName + "','" + iteamName + "',"+ orderQuantity +","+ totalPrice +")";
                 SqlCommand sqlCommand = new SqlCommand(commandString, sqlConnection);
 
                 sqlConnection.Open();
+                sqlCommand.ExecuteNonQuery();
                 int isExecute = sqlCommand.ExecuteNonQuery();
                 if (isExecute > 0)
                 {
@@ -35,11 +36,39 @@ namespace MyWindowsFormsApp.Repository
 
                 sqlConnection.Close();
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 //MessageBox.Show(ex.Message);
             }
             return false;
+        }
+
+        public bool IsCustomerNameAndIteamNameExists(string Customername,string itemName)
+        {
+            bool exists = false;
+            //Connection
+            string connectionString = @"Server=DESKTOP-FJFQ4S2\SQLSERVER; Database=CoffeeShop; Integrated Security=True";
+            SqlConnection sqlConnection = new SqlConnection(connectionString);
+
+            //Command 
+            //INSERT INTO Items (Name, Price) Values ('Black', 120)
+            string commandString = @"SELECT * FROM Orders WHERE CustomerName ='" + Customername + "' AND IteamName ='" + itemName + "'";
+            SqlCommand sqlCommand = new SqlCommand(commandString, sqlConnection);
+
+            //Open
+            sqlConnection.Open();
+            //Show
+            SqlDataAdapter sqlDataAdapter = new SqlDataAdapter(sqlCommand);
+            DataTable dataTable = new DataTable();
+            sqlDataAdapter.Fill(dataTable);
+            if (dataTable.Rows.Count > 0)
+            {
+                exists = true;
+            }
+            //Close
+            sqlConnection.Close();
+
+            return exists;
         }
     }
 }

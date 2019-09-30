@@ -21,18 +21,46 @@ namespace MyWindowsFormsApp
 
         private void addButton_Click(object sender, EventArgs e)
         {
-
-            //Add/Insert Item
-            bool isAdded = _orderManager.AddOrderInfo(customerNameTextBox.Text,iteamNameTextBox.Text,Convert.ToInt16(orderQuantityTextBox.Text),Convert.ToDouble(totalOrderPriceTextBox.Text));
-
-            if (isAdded)
+            //Set Price as Mandatory
+            if (String.IsNullOrEmpty(orderQuantityTextBox.Text) && String.IsNullOrEmpty(totalOrderPriceTextBox.Text))
             {
-                MessageBox.Show("Saved");
+                MessageBox.Show("Quantity And Total Price Field Required!!!");
+                return;
             }
             else
             {
-                MessageBox.Show("Not Saved");
+                //Check UNIQUE Customer Name
+                if (_orderManager.IsCustomerNameAndIteamNameExists(customerNameTextBox.Text,iteamNameTextBox.Text))
+                {
+                    MessageBox.Show(" Already Exists!");
+                    return;
+                }
+                else
+                {
+                       bool isAdded = _orderManager.AddOrderInfo(customerNameTextBox.Text, iteamNameTextBox.Text, Convert.ToInt16(orderQuantityTextBox.Text), Convert.ToDouble(totalOrderPriceTextBox.Text));
+
+                        if (isAdded)
+                        {
+                            MessageBox.Show("Saved");
+                        }
+                        else
+                        {
+                            MessageBox.Show("Not Saved");
+                        }
+                }    
+               
+
             }
+
+
+            //Check ItemName UNIQUE
+            //if (_orderManager.IsItemNameExists(iteamNameTextBox.Text))
+            //{
+            //    MessageBox.Show(iteamNameTextBox.Text + " Already Exists!");
+            //    return;
+            //}
+            //Add/Insert Item
+
         }
 
         private void showButton_Click(object sender, EventArgs e)
@@ -60,7 +88,7 @@ namespace MyWindowsFormsApp
         {
             try
             { // SQL connection 
-                string connectionString = @"Server=localhost; DataBase=CoffeeShop; Integrated Security=True";
+                string connectionString = @"Server=DESKTOP-FJFQ4S2\SQLSERVER; DataBase=CoffeeShop; Integrated Security=True";
                 SqlConnection sqlConnection = new SqlConnection(connectionString);
                 //Sql Command
 
@@ -94,7 +122,7 @@ namespace MyWindowsFormsApp
         {
             try
             {// SQL connection 
-                string connectionString = @"Server=localhost; DataBase=CoffeeShop; Integrated Security=True";
+                string connectionString = @"Server=DESKTOP-FJFQ4S2\SQLSERVER; DataBase=CoffeeShop; Integrated Security=True";
                 SqlConnection sqlConnection = new SqlConnection(connectionString);
                 //Sql Command
 
@@ -123,7 +151,7 @@ namespace MyWindowsFormsApp
         {
             try
             {// SQL connection 
-                string connectionString = @"Server=localhost; DataBase=CoffeeShop; Integrated Security=True";
+                string connectionString = @"Server=DESKTOP-FJFQ4S2\SQLSERVER; DataBase=CoffeeShop; Integrated Security=True";
                 SqlConnection sqlConnection = new SqlConnection(connectionString);
                 //Sql Command
 
@@ -156,7 +184,7 @@ namespace MyWindowsFormsApp
         {
             try
             { // SQL connection 
-                string connectionString = @"Server=localhost; DataBase=CoffeeShop; Integrated Security=True";
+                string connectionString = @"Server=DESKTOP-FJFQ4S2\SQLSERVER; DataBase=CoffeeShop; Integrated Security=True";
                 SqlConnection sqlConnection = new SqlConnection(connectionString);
                 //Sql Command
 

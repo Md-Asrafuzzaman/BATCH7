@@ -36,7 +36,7 @@ namespace MyWindowsFormsApp.Repository
 
                 sqlConnection.Close();
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 //MessageBox.Show(ex.Message);
             }
@@ -96,7 +96,7 @@ namespace MyWindowsFormsApp.Repository
 
                 sqlConnection.Close();
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 //MessageBox.Show(ex.Message);
             }
@@ -162,7 +162,7 @@ namespace MyWindowsFormsApp.Repository
 
                 sqlConnection.Close();
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 //MessageBox.Show(ex.Message);
             }

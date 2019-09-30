@@ -14,5 +14,10 @@ namespace MyWindowsFormsApp.BLL
         {
             return _orderRepository.AddOrderInfo(customerName,iteamName,orderQuantity,totalPrice);
         }
+
+        public bool IsCustomerNameAndIteamNameExists(string Customername, string itemName)
+        {
+            return _orderRepository.IsCustomerNameAndIteamNameExists(Customername, itemName);
+        }
     }
 }
