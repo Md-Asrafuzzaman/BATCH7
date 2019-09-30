@@ -20,6 +20,7 @@ namespace MyWindowsFormsApp
             InitializeComponent();
         }
 
+        //addButton_Click Action
         private void addButton_Click(object sender, EventArgs e)
         {
             //Check UNIQUE
@@ -32,6 +33,7 @@ namespace MyWindowsFormsApp
             if (isAdded)
             {
                 MessageBox.Show("Saved");
+                showDataGridView.DataSource = _customerManager.Display();
             }
             else
             {
@@ -39,11 +41,13 @@ namespace MyWindowsFormsApp
             }
         }
 
+        //addButton_Click Action 
         private void showButton_Click(object sender, EventArgs e)
         {
-            ShowCustomerInfo();
+            showDataGridView.DataSource = _customerManager.Display();
         }
 
+        //updateButton_Click Action
         private void updateButton_Click(object sender, EventArgs e)
         {
             //Set Id as Mandatory
@@ -62,114 +66,33 @@ namespace MyWindowsFormsApp
                 MessageBox.Show("Not Updated");
             }
         }
-
+        //searchButton_Click Action
         private void searchButton_Click(object sender, EventArgs e)
         {
-            SearchCustomerInfo();
+            showDataGridView.DataSource = _customerManager.SearchCustomerInfo(customerNameTextBox.Text);
         }
 
+        //deleteButton_Click Action
         private void deleteButton_Click(object sender, EventArgs e)
         {
-            DeleteCustomerInfo();
-        }
-
-        
-        private void ShowCustomerInfo()
-        {
-            try
-            { // SQL connection 
-                string connectionString = @"Server=DESKTOP-FJFQ4S2\SQLSERVER; DataBase=CoffeeShop; Integrated Security=True";
-                SqlConnection sqlConnection = new SqlConnection(connectionString);
-                //Sql Command
-
-                string commandString = "SELECT * FROM Customer";
-                SqlCommand sqlCommand = new SqlCommand(commandString, sqlConnection);
-
-                sqlConnection.Open();
-                //Execute
-                SqlDataAdapter sqlDataAdapter = new SqlDataAdapter(sqlCommand);
-                DataTable dataTable = new DataTable();
-                sqlDataAdapter.Fill(dataTable);
-
-                if (dataTable.Rows.Count > 0)
-                {
-                    showDataGridView.DataSource = dataTable;
-                }
-                else
-                {
-                    MessageBox.Show("Data Set Empty");
-                }
-
-                sqlConnection.Close();
-            }
-            catch (Exception ex)
+            //Set Id as Mandatory
+            if (String.IsNullOrEmpty(customerIdTextBox.Text))
             {
-                MessageBox.Show(ex.Message);
+                MessageBox.Show("Id Can not be Empty!!!");
+                return;
             }
-        }
 
-        private void SearchCustomerInfo()
-        {
-            try
-            {// SQL connection 
-                string connectionString = @"Server=DESKTOP-FJFQ4S2\SQLSERVER; DataBase=CoffeeShop; Integrated Security=True";
-                SqlConnection sqlConnection = new SqlConnection(connectionString);
-                //Sql Command
-
-                string commandString = "SELECT * FROM Customer WHERE CustomerId ='" + customerIdTextBox.Text + "'";
-                SqlCommand sqlCommand = new SqlCommand(commandString, sqlConnection);
-
-                sqlConnection.Open();
-                //Execute
-                SqlDataAdapter sqlDataAdapter = new SqlDataAdapter(sqlCommand);
-                DataTable dataTable = new DataTable();
-                sqlDataAdapter.Fill(dataTable);
-                if (dataTable.Rows.Count > 0)
-                {
-                    MessageBox.Show("Search Match");
-                    showDataGridView.DataSource = dataTable;
-
-                }
-                else
-                {
-                    MessageBox.Show("Search Data Not Match");
-                }
-                sqlConnection.Close();
-            }
-            catch (Exception ex)
+            //Delete
+            if (_customerManager.DeleteCustomerInfo(Convert.ToInt32(customerIdTextBox.Text)))
             {
-                MessageBox.Show(ex.Message);
+                MessageBox.Show("Deleted");
             }
-        }
-        private void DeleteCustomerInfo()
-        {
-            try
-            { // SQL connection 
-                string connectionString = @"Server=DESKTOP-FJFQ4S2\SQLSERVER; DataBase=CoffeeShop; Integrated Security=True";
-                SqlConnection sqlConnection = new SqlConnection(connectionString);
-                //Sql Command
-
-                string commandString = "DELETE FROM Customer WHERE CustomerId ='" + customerIdTextBox.Text + "'";
-                SqlCommand sqlCommand = new SqlCommand(commandString, sqlConnection);
-
-                sqlConnection.Open();
-                //Execute
-                int isExecute = sqlCommand.ExecuteNonQuery();
-                if (isExecute > 0)
-                {
-                    MessageBox.Show("Successfully Deleted");
-                }
-                else
-                {
-                    MessageBox.Show("Not Deleted");
-                }
-
-                sqlConnection.Close();
-            }
-            catch (Exception ex)
+            else
             {
-                MessageBox.Show(ex.Message);
+                MessageBox.Show("Not Deleted");
             }
+
+            showDataGridView.DataSource = _customerManager.Display();
         }
     }
 }

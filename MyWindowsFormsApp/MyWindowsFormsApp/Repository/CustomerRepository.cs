@@ -10,6 +10,7 @@ namespace MyWindowsFormsApp.Repository
 {
     public class CustomerRepository
     {
+        //Add Operation Method
         public bool AddCustomerInfo(string name,string address,string contact)
         {
             bool isAdded = false;
@@ -70,6 +71,7 @@ namespace MyWindowsFormsApp.Repository
             return exists;
         }
 
+        //Update Operation Method
         public bool UpdateCustomerInfo(int id,string name, string address, string contact)
         {
             try
@@ -101,6 +103,7 @@ namespace MyWindowsFormsApp.Repository
             return true;
         }
 
+        //Display Data Operation Method
         public DataTable Display()
         {
             //Connection
@@ -131,7 +134,59 @@ namespace MyWindowsFormsApp.Repository
             //Close
             sqlConnection.Close();
             return dataTable;
-
         }
+
+        //Delete Operation Method
+        public bool DeleteCustomerInfo(int id)
+        {
+            try
+            { // SQL connection 
+                string connectionString = @"Server=DESKTOP-FJFQ4S2\SQLSERVER; DataBase=CoffeeShop; Integrated Security=True";
+                SqlConnection sqlConnection = new SqlConnection(connectionString);
+                //Sql Command
+
+                string commandString = "DELETE FROM Customer WHERE CustomerId ='" + id + "'";
+                SqlCommand sqlCommand = new SqlCommand(commandString, sqlConnection);
+
+                sqlConnection.Open();
+                //Execute
+                int isExecute = sqlCommand.ExecuteNonQuery();
+                if (isExecute > 0)
+                {
+                    return true;
+                }
+                else
+                {
+                    //MessageBox.Show("Not Deleted");
+                }
+
+                sqlConnection.Close();
+            }
+            catch (Exception ex)
+            {
+                //MessageBox.Show(ex.Message);
+            }
+            return false;
+        }
+
+        //Search Operation Method
+        public DataTable SearchCustomerInfo(string name)
+        {
+            // SQL connection 
+                string connectionString = @"Server=DESKTOP-FJFQ4S2\SQLSERVER; DataBase=CoffeeShop; Integrated Security=True";
+                SqlConnection sqlConnection = new SqlConnection(connectionString);
+                //Sql Command
+
+                string commandString = "SELECT * FROM Customer WHERE CustomerName ='" + name + "'";
+                SqlCommand sqlCommand = new SqlCommand(commandString, sqlConnection);
+                sqlConnection.Open();
+                //Execute
+                SqlDataAdapter sqlDataAdapter = new SqlDataAdapter(sqlCommand);
+                DataTable dataTable = new DataTable();
+                sqlDataAdapter.Fill(dataTable);     
+                sqlConnection.Close();
+                return dataTable;
+        }
+
     }
 }
