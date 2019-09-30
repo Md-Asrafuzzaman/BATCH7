@@ -18,7 +18,7 @@ namespace MyWindowsFormsApp
             Application.SetCompatibleTextRenderingDefault(false);
 
             //Application.Run(new Home());
-            Application.Run(new CustomerUI());
+            Application.Run(new OrdersUI());
         }
     }
 }
