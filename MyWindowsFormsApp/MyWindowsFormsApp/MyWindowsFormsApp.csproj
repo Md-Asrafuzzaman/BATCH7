@@ -48,6 +48,7 @@
   <ItemGroup>
     <Compile Include="BLL\CustomerManager.cs" />
     <Compile Include="BLL\IteamManager.cs" />
+    <Compile Include="BLL\OrderManager.cs" />
     <Compile Include="CustomerUI.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -88,6 +89,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repository\CustomerRepository.cs" />
     <Compile Include="Repository\IteamRepository.cs" />
+    <Compile Include="Repository\OrderRepository.cs" />
     <EmbeddedResource Include="ArrayUi.resx">
       <DependentUpon>ArrayUi.cs</DependentUpon>
     </EmbeddedResource>
